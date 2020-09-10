@@ -1,26 +1,52 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import ExpenseForm from './components/ExpenseForm';
+import ExpenseTable from './components/ExpenseTable';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+    this.state = {
+      expenseList: [],
+      visible: false
+    };
+  }
+
+  handleExpenseSubmit = (id, date, location, expense, cost) => {
+    this.setState({
+      expenseList: [...this.state.expenseList,
+      { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
+    });
+
+    if (this.state.expenseList) {
+      this.setState({ 'visible': true })
+    }
+  }
+
+  handleRemove = (id) => {
+    const newList = this.state.expenseList.filter((expense) => expense.id !== id);
+    this.setState({ 'expenseList': newList });
+
+    if (!newList.length) {
+      this.setState({ 'visible': false })
+    }
+  }
+
+
+  render() {
+    return (
+      <div className="App" >
+        <Header />
+        <ExpenseForm handleExpenseSubmit={this.handleExpenseSubmit} />
+        {this.state.visible ? (
+          <ExpenseTable expenseListProp={this.state.expenseList} handleRemove={this.handleRemove} />) : <div />}
+      </div>
+    );
+  }
 }
 
 export default App;
