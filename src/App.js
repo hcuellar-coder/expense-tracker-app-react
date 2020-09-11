@@ -16,34 +16,47 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const newList = JSON.parse(localStorage.getItem('expenseList'));
+    this.setState({
+      'expenseList': newList
+    }, () => {
+      if (this.state.expenseList.length) {
+        this.setState({ 'visible': true })
+      }
+    });
+  }
+
   handleExpenseSubmit = (id, date, location, expense, cost) => {
     this.setState({
-      expenseList: [...this.state.expenseList,
-      { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
+      expenseList: [...this.state.expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
+    }, () => {
+      localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
+      if (this.state.expenseList.length) {
+        this.setState({ 'visible': true })
+      }
     });
-
-    if (this.state.expenseList) {
-      this.setState({ 'visible': true })
-    }
   }
 
   handleRemove = (id) => {
     const newList = this.state.expenseList.filter((expense) => expense.id !== id);
-    this.setState({ 'expenseList': newList });
-
-    if (!newList.length) {
-      this.setState({ 'visible': false })
-    }
+    this.setState({
+      'expenseList': newList
+    }, () => {
+      localStorage.clear();
+      localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
+      if (!this.state.expenseList.length) {
+        this.setState({ 'visible': false })
+      }
+    });
   }
-
 
   render() {
     return (
       <div className="App" >
         <Header />
         <ExpenseForm handleExpenseSubmit={this.handleExpenseSubmit} />
-        {this.state.visible ? (
-          <ExpenseTable expenseListProp={this.state.expenseList} handleRemove={this.handleRemove} />) : <div />}
+        {this.state.visible ? <ExpenseTable expenseListProp={this.state.expenseList} handleRemove={this.handleRemove} /> : <div />}
       </div>
     );
   }

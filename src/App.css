@@ -3,22 +3,45 @@ h1 {
     justify-content: center;
 }
 
+table {
+    text-align: center;
+}
+
 .expense-form {
     display: flex;
     justify-content: center;
- }
+}
 
+.cell-expense-date {
+    width: 125px;
+}
+
+.cell-expense-location {
+    width: 150px;
+}
+
+.cell-expense-description {
+    width: 350px
+}
+
+.cell-expense-cost {
+    width: 100px;
+}
+
+.cell-delete-button {
+    width: 75px;
+}
 
 #expense-date{
      min-width: 100px;
- }
+}
 
  #expense-description{
-    min-width: 285px;
+    min-width: 280px;
 }
 
 #expense-location{
-    min-width: 280px;
+    min-width: 285px;
 }
 
 #expense-cost{

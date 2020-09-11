@@ -24,26 +24,26 @@ class ExpenseForm extends React.Component {
 
     }
 
-    //check for validity with a function
-
     handleSubmit(event) {
-        const form = event.currentTarget;
-        console.log(form);
-        console.log(form.checkValidity());
         event.preventDefault();
+
+        const form = event.currentTarget;
         if (form.checkValidity() === false) {
-
-        } else {
-            const randomID = Math.floor(Math.random() * 100);
-            this.props.handleExpenseSubmit(randomID,
-                this.state.date, this.state.location,
-                this.state.expense, this.state.cost);
-
             this.setState({ validated: true });
         }
 
+        const randomID = Math.floor(Math.random() * 100);
+        this.props.handleExpenseSubmit(randomID,
+            this.state.date, this.state.location,
+            this.state.expense, this.state.cost);
 
-
+        this.setState({
+            'date': '',
+            'expense': '',
+            'location': '',
+            'cost': '',
+            'validated': false
+        });
     }
 
     render() {
@@ -53,24 +53,57 @@ class ExpenseForm extends React.Component {
                     <Form.Row className="align-items-center">
                         <Form.Group>
                             <Col>
-                                <Form.Control id="expense-date" type="date" name="date" value={this.state.date} onChange={this.handleChange} />
+                                <Form.Control
+                                    required
+                                    id="expense-date"
+                                    type="date"
+                                    name="date"
+                                    value={this.state.date}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid">Please provide a date!</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
                         <Form.Group>
                             <Col>
-                                <Form.Control id="expense-description" type="text" placeholder="Expense" name="expense" value={this.state.expense} onChange={this.handleChange} />
+                                <Form.Control
+                                    required
+                                    id="expense-location"
+                                    type="text"
+                                    placeholder="Location"
+                                    name="location"
+                                    value={this.state.location}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid">Please provide a location!</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group>
                             <Col>
-                                <Form.Control id="expense-location" type="text" placeholder="Location" name="location" value={this.state.location} onChange={this.handleChange} />
+                                <Form.Control
+                                    required
+                                    id="expense-description"
+                                    type="text"
+                                    placeholder="Expense Description"
+                                    name="expense"
+                                    value={this.state.expense}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid">Please provide a description!</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
                         <Form.Group>
                             <Col>
-                                <Form.Control id="expense-cost" type="number" step="0.01" placeholder="$000.00" name="cost" value={this.state.cost} onChange={this.handleChange} />
+                                <Form.Control
+                                    required
+                                    id="expense-cost"
+                                    type="number"
+                                    step="0.01"
+                                    min="0.01"
+                                    placeholder="$000.00"
+                                    name="cost"
+                                    value={this.state.cost}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid">Please provide a cost greater than 0!</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
                         <Form.Group>
