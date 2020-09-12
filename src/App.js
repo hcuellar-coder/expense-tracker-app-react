@@ -29,8 +29,9 @@ class App extends React.Component {
   }
 
   handleExpenseSubmit = (id, date, location, expense, cost) => {
+    const expenseList = this.state.expenseList;
     this.setState({
-      expenseList: [...this.state.expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
+      expenseList: [...expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
     }, () => {
       localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
       console.log(this.state.expenseList);
