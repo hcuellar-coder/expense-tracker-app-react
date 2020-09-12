@@ -18,41 +18,40 @@ class App extends React.Component {
 
   componentDidMount() {
     const newList = JSON.parse(localStorage.getItem('expenseList'));
-    this.setState({
-      'expenseList': newList
-    }, () => {
-      console.log(this.state.expenseList);
-      if (this.state.expenseList) {
-        this.setState({ 'visible': true })
-      }
-    });
+    this.setState({ 'expenseList': newList },
+      () => {
+        if (this.state.expenseList.length > 0) {
+          this.setState({ 'visible': true })
+        }
+      });
   }
 
   handleExpenseSubmit = (id, date, location, expense, cost) => {
     const expenseList = this.state.expenseList;
-    this.setState({
-      expenseList: [...expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
-    }, () => {
-      localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
-      console.log(this.state.expenseList);
-      if (this.state.expenseList) {
-        this.setState({ 'visible': true })
-      }
-    });
+    if (expenseList) {
+      this.setState({ expenseList: [...expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }] },
+        () => {
+          localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
+        });
+    } else {
+      this.setState({ expenseList: [{ 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }] },
+        () => {
+          localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
+        });
+    }
+    this.setState({ 'visible': true });
   }
 
   handleRemove = (id) => {
     const newList = this.state.expenseList.filter((expense) => expense.id !== id);
-    this.setState({
-      'expenseList': newList
-    }, () => {
-      localStorage.clear();
-      localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
-      console.log(!this.state.expenseList);
-      if (!this.state.expenseList) {
-        this.setState({ 'visible': false })
-      }
-    });
+    this.setState({ 'expenseList': newList },
+      () => {
+        localStorage.clear();
+        localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
+        if (this.state.expenseList.length < 1) {
+          this.setState({ 'visible': false })
+        }
+      });
   }
 
   render() {

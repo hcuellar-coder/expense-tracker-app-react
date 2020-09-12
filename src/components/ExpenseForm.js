@@ -30,20 +30,20 @@ class ExpenseForm extends React.Component {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             this.setState({ validated: true });
+        } else {
+            const randomID = Math.floor(Math.random() * 100);
+            this.props.handleExpenseSubmit(randomID,
+                this.state.date, this.state.location,
+                this.state.expense, this.state.cost);
+
+            this.setState({
+                'date': '',
+                'expense': '',
+                'location': '',
+                'cost': '',
+                'validated': false
+            });
         }
-
-        const randomID = Math.floor(Math.random() * 100);
-        this.props.handleExpenseSubmit(randomID,
-            this.state.date, this.state.location,
-            this.state.expense, this.state.cost);
-
-        this.setState({
-            'date': '',
-            'expense': '',
-            'location': '',
-            'cost': '',
-            'validated': false
-        });
     }
 
     render() {
