@@ -21,7 +21,7 @@ class App extends React.Component {
     this.setState({
       'expenseList': newList
     }, () => {
-      if (this.state.expenseList.length > 1) {
+      if (newList.length > 0) {
         this.setState({ 'visible': true })
       }
     });
@@ -32,7 +32,7 @@ class App extends React.Component {
       expenseList: [...this.state.expenseList, { 'id': id, 'date': date, 'location': location, 'expense': expense, 'cost': cost }]
     }, () => {
       localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
-      if (this.state.expenseList.length > 1) {
+      if (this.state.expenseList.length > 0) {
         this.setState({ 'visible': true })
       }
     });
@@ -45,7 +45,7 @@ class App extends React.Component {
     }, () => {
       localStorage.clear();
       localStorage.setItem('expenseList', JSON.stringify(this.state.expenseList));
-      if (this.state.expenseList.length < 1) {
+      if (newList.length < 1) {
         this.setState({ 'visible': false })
       }
     });
