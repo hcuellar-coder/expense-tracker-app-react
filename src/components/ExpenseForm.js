@@ -110,7 +110,6 @@ class ExpenseForm extends React.Component {
                             <Button variant="primary" type="submit">Add</Button>
                         </Form.Group>
                     </Form.Row>
-
                 </Form>
             </Container>
         )
