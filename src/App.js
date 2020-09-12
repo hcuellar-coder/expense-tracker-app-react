@@ -20,7 +20,7 @@ class App extends React.Component {
     const newList = JSON.parse(localStorage.getItem('expenseList'));
     this.setState({ 'expenseList': newList },
       () => {
-        if (this.state.expenseList.length > 0) {
+        if (this.state.expenseList && this.state.expenseList.length > 0) {
           this.setState({ 'visible': true })
         }
       });
