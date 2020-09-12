@@ -3,7 +3,7 @@ A clean and simple app for tracking expenses, built using Reactjs and styled wit
 
 Code Located [Here](https://github.com/hcuellar-coder/expense-tracker-app-react)
 
-Run Code [Here](https://enigmatic-depths-63978.herokuapp.com/)
+Run Code [Here](https://hc-expense-tracker-react.herokuapp.com/)
 
 ![ExpenseTrackerApp](./images/expense-tracker-app-react.PNG)
 
