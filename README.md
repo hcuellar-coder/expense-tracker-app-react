@@ -3,9 +3,9 @@ A clean and simple app for tracking expenses, written entirely in JavaScript, HT
 
 Code Located [Here](https://github.com/hcuellar-coder/expense-tracker-app-react)
 
-Run Code [Here](https://hcuellar-coder.github.io/expense-tracker-app-react/)
+Run Code [Here](https://enigmatic-depths-63978.herokuapp.com/)
 
-![ExpenseTrackerApp]()
+![ExpenseTrackerApp](./src/images/expense-tracker-app-react.PNG)
 
 ## Summary
 The Expense Tracking App is a simple and easy way of tracking your daily expenses. It takes advantage of the local storage to keep your information from clearing.
