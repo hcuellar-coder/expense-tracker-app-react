@@ -6,14 +6,29 @@ import ExpenseTable from './components/ExpenseTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
+  constructor() {
+    super();
     this.state = {
+      date: '',
+      expense: '',
+      location: '',
+      cost: '',
+      validated: false,
       expenseList: [],
       visible: false
     };
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
   }
 
   componentDidMount() {
@@ -24,6 +39,28 @@ class App extends React.Component {
           this.setState({ 'visible': true })
         }
       });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      this.setState({ validated: true });
+    } else {
+      const randomID = Math.floor(Math.random() * 100);
+      this.handleExpenseSubmit(randomID,
+        this.state.date, this.state.location,
+        this.state.expense, this.state.cost);
+
+      this.setState({
+        'date': '',
+        'expense': '',
+        'location': '',
+        'cost': '',
+        'validated': false
+      });
+    }
   }
 
   handleExpenseSubmit = (id, date, location, expense, cost) => {
@@ -58,8 +95,22 @@ class App extends React.Component {
     return (
       <div className="App" >
         <Header />
-        <ExpenseForm handleExpenseSubmit={this.handleExpenseSubmit} />
-        {this.state.visible ? <ExpenseTable expenseListProp={this.state.expenseList} handleRemove={this.handleRemove} /> : <div />}
+        <ExpenseForm
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          validated={this.state.validated}
+          date={this.state.date}
+          location={this.state.location}
+          expense={this.state.expense}
+          cost={this.state.cost}
+        />
+        {this.state.visible ?
+          <ExpenseTable
+            expenseListProp={this.state.expenseList}
+            handleRemove={this.handleRemove}
+          /> : (
+            <div />
+          )}
       </div>
     );
   }
