@@ -11,4 +11,4 @@ clean table and allows a user to delete the expense if they so choose. It also t
 This is my first app using React-JS, which was very different from using vanilla javascript, but I learned a lot and enjoy making applications that are clean and simple.
 
 ## Author
-Heriberto Cuellar – Full Stack Software Developer - [LinkedIn](linkedin.com/in/heriberto-c-5aa11952)
+Heriberto Cuellar – Full Stack Software Developer - [LinkedIn](https://www.linkedin.com/in/heriberto-c-5aa11952)
